@@ -37,6 +37,10 @@ func OpenTracingServerInterceptor(tracer opentracing.Tracer, optFuncs ...Option)
 		if info.FullMethod == "/grpc.health.v1.Health/Check" {
 			return handler(ctx, req)
 		}
+		// 过滤 http 健康检查
+		if info.FullMethod == "/frontend/v1/health " {
+			return handler(ctx, req)
+		}
 		spanContext, err := extractSpanContext(ctx, tracer)
 		if err != nil && err != opentracing.ErrSpanContextNotFound {
 			// TODO: establish some sort of error reporting mechanism here. We
