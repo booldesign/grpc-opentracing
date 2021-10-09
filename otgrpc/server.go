@@ -38,7 +38,7 @@ func OpenTracingServerInterceptor(tracer opentracing.Tracer, optFuncs ...Option)
 			return handler(ctx, req)
 		}
 		// 过滤 http 健康检查
-		if info.FullMethod == "/frontend/v1/health " {
+		if info.FullMethod == "/frontend/v1/health" {
 			return handler(ctx, req)
 		}
 		spanContext, err := extractSpanContext(ctx, tracer)
